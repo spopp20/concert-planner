@@ -1,17 +1,17 @@
 import type { NextPage } from "next";
 import { trpc } from "../utils/trpc";
 
-const Songs: NextPage = () => {
-  const songs = trpc.useQuery(["song.getAll"]);
+const Events: NextPage = () => {
+  const events = trpc.useQuery(["event.getAll"]);
 
   return (
     <>
-      <p className="text-2xl text-gray-700">Songs</p>
+      <p className="text-2xl text-gray-700">Events</p>
       <div className="pt-6 text-2xl text-blue-500 flex justify-center items-center w-full">
-        {songs.data ? (
+        {events.data ? (
           <ul>
-            {songs.data.map((song) => (
-              <li key={song.id}>{song.title}</li>
+            {events.data.map((event) => (
+              <li key={event.id}>{event.name}</li>
             ))}
           </ul>
         ) : (
@@ -22,4 +22,4 @@ const Songs: NextPage = () => {
   );
 };
 
-export default Songs;
+export default Events;

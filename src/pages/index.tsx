@@ -5,8 +5,6 @@ import ActionCard from "../components/ActionCard";
 
 const Home: NextPage = () => {
 
-  const hello = trpc.useQuery(["example.hello", { text: "from tRPC" }]);
-
   return (
     <>
       <Head>
@@ -26,7 +24,6 @@ const Home: NextPage = () => {
             description="Use a searchable song database to add, edit, and find songs"
             linkName="Songs"
             pageRoute="songs"
-
           />
           <ActionCard
             title="Select Instruments"
@@ -34,10 +31,12 @@ const Home: NextPage = () => {
             linkName="Instruments"
             pageRoute="instruments"
           />
-        </div>
- 
-        <div className="pt-6 text-2xl text-blue-500 flex justify-center items-center w-full">
-          {hello.data ? <p>{hello.data.greeting}</p> : <p>Loading..</p>}
+          <ActionCard
+            title="Select Events"
+            description="Add a concert event or add and edit an event"
+            linkName="Events"
+            pageRoute="events"
+          />
         </div>
       </main>
     </>
