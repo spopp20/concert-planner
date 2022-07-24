@@ -43,6 +43,25 @@ const instrumentData: Prisma.InstrumentCreateInput[] = [
     },
 ]
 
+const songData: Prisma.SongCreateInput[] = [
+    {
+        title: 'Faithful One',
+        startKey: 'A',
+        startWords: 'Faithful One so unchanging',
+        arrangement: 'Piano Introduction',
+        tempoCd: 1,
+        active: 1,
+    },
+    {
+        title: 'Great is your Faithfulness to me',
+        startKey: 'B',
+        startWords: 'Faithful One so unchanging',
+        arrangement: 'Men Start',
+        tempoCd: 1,
+        active: 1,
+    },
+]
+
 async function main() {
     console.log(`Start seeding ...`)
     for (const u of userData) {
@@ -51,17 +70,19 @@ async function main() {
         })
         console.log(`Created user with id: ${user.id}`)
     }
-    for (const u of eventData) {
+
+    for (const e of eventData) {
         const event = await prisma.event.create({
-            data: u,
+            data: e,
         })
         console.log(`Created event with id: ${event.id}`)
     }
-    for (const u of instrumentData) {
-        const instrument = await prisma.instrument.create({
-            data: u,
+
+    for (const i of songData) {
+        const song = await prisma.song.create({
+            data: i,
         })
-        console.log(`Created instrument with id: ${instrument.id}`)
+        console.log(`Created song with id: ${song.id}`)
     }
     console.log(`Seeding finished.`)
 }

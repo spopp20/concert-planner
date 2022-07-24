@@ -29,7 +29,7 @@ After getting the source code the next steps are:
 
 ## Scripts
 
-```
+```bash
 * npm run dev - run the application in development
 * npm run build - do a production build
 * npm run start - run the application in production mode
@@ -38,7 +38,8 @@ After getting the source code the next steps are:
 
 ## Prisma Commands
 
-```
+```bash
+* npx prisma db seed - seed the development database with data from prisma/seed.ts
 * npx prisma format - formats the prisma schema file
 * npx prisma migrate dev --name init - changes the database schema and seeds the database
 * npx prisma studio - runs a web app to show database data
