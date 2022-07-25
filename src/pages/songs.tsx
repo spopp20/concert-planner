@@ -1,17 +1,20 @@
 import type { NextPage } from "next";
 import { trpc } from "../utils/trpc";
+import BackButton from "../components/BackButton";
 
 const Songs: NextPage = () => {
-  const songs = trpc.useQuery(["song.getAll"]);
-
+  const tableData = trpc.useQuery(["song.getAll"]);
+  
   return (
     <>
-      <p className="text-2xl text-gray-700">Songs</p>
+      <BackButton />
+      <p className="text-2xl text-gray-700 flex justify-center">Songs</p>
+
       <div className="pt-6 text-2xl text-blue-500 flex justify-center items-center w-full">
-        {songs.data ? (
+        {tableData.data ? (
           <ul>
-            {songs.data.map((song) => (
-              <li key={song.id}>{song.title}</li>
+            {tableData.data.map((s) => (
+              <li key={s.id}>{s.title}</li>
             ))}
           </ul>
         ) : (
