@@ -3,7 +3,7 @@ import { trpc } from "../utils/trpc";
 import BackButton from "../components/BackButton";
 
 const Songs: NextPage = () => {
-  const tableData = trpc.useQuery(["song.getAll"]);
+  const tableData = trpc.useQuery(["song.all"]);
   
   return (
     <>

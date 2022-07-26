@@ -3,7 +3,7 @@ import { trpc } from "../utils/trpc";
 import BackButton from "../components/BackButton";
 
 const Instruments: NextPage = () => {
-    const instruments = trpc.useQuery(["instrument.getAll"], );
+    const instruments = trpc.useQuery(["instrument.all"], );
 
   return (
     <>

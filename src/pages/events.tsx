@@ -3,7 +3,7 @@ import { trpc } from "../utils/trpc";
 import BackButton from "../components/BackButton";
 
 const Events: NextPage = () => {
-  const events = trpc.useQuery(["event.getAll"]);
+  const events = trpc.useQuery(["event.all"]);
 
   return (
     <>
