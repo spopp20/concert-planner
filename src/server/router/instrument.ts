@@ -1,6 +1,7 @@
 import { TRPCError } from '@trpc/server';
 import { createRouter } from "./context";
 import { z } from "zod";
+import { InstrumentModel } from '../../zod';
 
 const defaultInstrumentSelect = ({
   id: true,
@@ -11,17 +12,31 @@ const defaultInstrumentSelect = ({
 });
 
 export const instrumentRouter = createRouter()
+// create
+.mutation('add', {
+  input: InstrumentModel,
+  async resolve({ ctx, input}) {
+    const instrument = await ctx.prisma.instrument.create({
+      select: defaultInstrumentSelect,
+      data: input,
+    });
+    return instrument;
+  },
+})
 .query("all", {
   async resolve({ ctx }) {
     return await ctx.prisma.instrument.findMany({
       select: defaultInstrumentSelect,
+      orderBy: {
+        name: 'asc',
+      } 
     });
   },
 })
 // unique
 .query('byId', {
   input: z.object({
-    id: z.string(),
+    id: z.string().cuid(),
   }),
   async resolve({ ctx, input }) {
     const { id } = input;
@@ -41,7 +56,7 @@ export const instrumentRouter = createRouter()
 // delete
 .mutation('delete', {
   input: z.object({
-    id: z.string(),
+    id: z.string().cuid(),
   }),
   async resolve({ ctx, input }) {
     const { id } = input;
@@ -49,5 +64,20 @@ export const instrumentRouter = createRouter()
     return {
       id,
     };
+  },
+})
+// edit
+.mutation('edit', {
+  input: z.object({
+    id: z.string().cuid(),
+    data: InstrumentModel,
+  }),
+  async resolve({ ctx, input }) {
+    const { id, data } = input;
+    const instrument = await ctx.prisma.instrument.update({
+      where: { id },
+      data,
+    });
+    return instrument;
   },
 });

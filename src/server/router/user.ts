@@ -5,6 +5,7 @@
 import { TRPCError } from '@trpc/server';
 import { createRouter } from "./context";
 import { z } from "zod";
+import { UserModel } from '../../zod';
 
 
 /**
@@ -21,40 +22,31 @@ import { z } from "zod";
 
   export const userRouter = createRouter()
     // create
-    // .mutation('add', {
-    //   input: z.object({
-    //     id: z.string().optional(),
-    //     name: z.string().min(5).max(64),
-    //     email: z.string().min(10),
-    //     emailVerified: z.boolean().optional(),
-    //   }),
-
-    //   async resolve({ ctx, input}) {
-    //     const user = await ctx.prisma.user.create({
-    //       data: input,
-    //       //select: defaultUserSelect,
-    //     });
-    //     return user;
-    //   },
-    // })
-    // read
-    .query('all', {
-      async resolve({ ctx }) {
-        
-        /**
-         * For pagination you can have a look at this docs site
-         * @link https://trpc.io/docs/useInfiniteQuery
-         */
-  
-        return ctx.prisma.user.findMany({
+    .mutation('add', {
+      input: UserModel,
+      async resolve({ ctx, input}) {
+        const user = await ctx.prisma.user.create({
           select: defaultUserSelect,
+          data: input,
         });
+        return user;
       },
     })
+    // remove this query
+    // .query('all', {
+    //   async resolve({ ctx }) {
+    //     return ctx.prisma.user.findMany({
+    //       select: defaultUserSelect,
+    //       orderBy: {
+    //         name: 'asc',
+    //       } 
+    //     });
+    //   },
+    // })
     // unique
     .query('byId', {
       input: z.object({
-        id: z.string(),
+        id: z.string().cuid(),
       }),
       async resolve({ ctx, input }) {
         const { id } = input;
@@ -71,30 +63,10 @@ import { z } from "zod";
         return user;
       },
     })
-    // update
-    // .mutation('edit', {
-    //   input: z.object({
-    //     id: z.string().uuid(),
-    //     data: z.object({
-    //       name: z.string().min(1).max(32),
-    //       email: z.string().min(1).max(32),
-    //       emailVerified: z.boolean(),
-    //     }),
-    //   }),
-    //   async resolve({ ctx, input }) {
-    //     const { id, data } = input;
-    //     const user = await ctx.prisma.user.update({
-    //       where: { id },
-    //       data,
-    //       select: defaultUserSelect,
-    //     });
-    //     return user;
-    //   },
-    // })
     // delete
     .mutation('delete', {
       input: z.object({
-        id: z.string(),
+        id: z.string().cuid(),
       }),
       async resolve({ ctx, input }) {
         const { id } = input;
@@ -102,5 +74,20 @@ import { z } from "zod";
         return {
           id,
         };
+      },
+    })
+    // edit
+    .mutation('edit', {
+      input: z.object({
+        id: z.string().cuid(),
+        data: UserModel,
+      }),
+      async resolve({ ctx, input }) {
+        const { id, data } = input;
+        const user = await ctx.prisma.user.update({
+          where: { id },
+          data,
+        });
+        return user;
       },
     });

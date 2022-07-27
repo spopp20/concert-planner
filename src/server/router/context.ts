@@ -19,7 +19,7 @@ export const createContext = async (
     req,
     res,
     session,
-    prisma,
+    prisma: prisma,
   };
 };
 

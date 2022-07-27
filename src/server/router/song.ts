@@ -1,6 +1,7 @@
 import { TRPCError } from '@trpc/server';
 import { createRouter } from "./context";
 import { z } from "zod";
+import { SongModel } from '../../zod';
 
 const defaultSongSelect = ({
   id: true,
@@ -14,17 +15,31 @@ const defaultSongSelect = ({
 });
 
 export const songRouter = createRouter()
+  // create
+  .mutation('add', {
+    input: SongModel,
+    async resolve({ ctx, input}) {
+      const song = await ctx.prisma.song.create({
+        select: defaultSongSelect,
+        data: input,
+      });
+      return song;
+    },
+  })
   .query("all", {
     async resolve({ ctx }) {
       return await ctx.prisma.song.findMany({
         select: defaultSongSelect,
+        orderBy: {
+          title: 'asc',
+        } 
       });
     },
   })
   // unique
   .query('byId', {
     input: z.object({
-      id: z.string(),
+      id: z.string().cuid(),
     }),
     async resolve({ ctx, input }) {
       const { id } = input;
@@ -44,7 +59,7 @@ export const songRouter = createRouter()
   // delete
   .mutation('delete', {
     input: z.object({
-      id: z.string(),
+      id: z.string().cuid(),
     }),
     async resolve({ ctx, input }) {
       const { id } = input;
@@ -53,4 +68,20 @@ export const songRouter = createRouter()
         id,
       };
     },
+  })
+  // edit
+  .mutation('edit', {
+    input: z.object({
+      id: z.string().cuid(),
+      data: SongModel,
+    }),
+    async resolve({ ctx, input }) {
+      const { id, data } = input;
+      const song = await ctx.prisma.song.update({
+        where: { id },
+        data,
+      });
+      return song;
+    },
   });
+  

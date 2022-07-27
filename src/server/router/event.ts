@@ -1,6 +1,7 @@
 import { TRPCError } from '@trpc/server';
 import { createRouter } from "./context";
 import { z } from "zod";
+import { EventModel } from '../../zod';
 
 const defaultEventSelect = ({
   id: true,
@@ -15,17 +16,31 @@ const defaultEventSelect = ({
 });
 
 export const eventRouter = createRouter()
+   // create
+   .mutation('add', {
+    input: EventModel,
+    async resolve({ ctx, input}) {
+      const event = await ctx.prisma.event.create({
+        select: defaultEventSelect,
+        data: input,
+      });
+      return event;
+    },
+  })
   .query("all", {
     async resolve({ ctx }) {
       return await ctx.prisma.event.findMany({
         select: defaultEventSelect,
+        orderBy: {
+          startDateTime: 'asc',
+        } 
       });
     },
   })
-  // unique
+  // by primary key
   .query('byId', {
     input: z.object({
-      id: z.string(),
+      id: z.string().cuid(),
     }),
     async resolve({ ctx, input }) {
       const { id } = input;
@@ -45,13 +60,28 @@ export const eventRouter = createRouter()
   // delete
   .mutation('delete', {
     input: z.object({
-      id: z.string(),
+      id: z.string().cuid(),
     }),
-    async resolve({ ctx, input }) {
+    async resolve({ ctx, input }): Promise<{ id: string; }> {
       const { id } = input;
       await ctx.prisma.event.delete({ where: { id } });
       return {
         id,
       };
+    },
+  })
+  // edit
+  .mutation('edit', {
+    input: z.object({
+      id: z.string().cuid(),
+      data: EventModel,
+    }),
+    async resolve({ ctx, input }) {
+      const { id, data } = input;
+      const event = await ctx.prisma.event.update({
+        where: { id },
+        data,
+      });
+      return event;
     },
   });

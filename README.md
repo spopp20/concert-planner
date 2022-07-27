@@ -41,6 +41,7 @@ After getting the source code the next steps are:
 ```bash
 * npx prisma db seed - seed the development database with data from prisma/seed.ts
 * npx prisma format - formats the prisma schema file
+* npx prisma generate - generate the prisma client and zod models
 * npx prisma migrate dev --name init - changes the database schema and seeds the database
 * npx prisma studio - runs a web app to show database data
 ```
