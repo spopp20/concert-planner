@@ -1,8 +1,8 @@
-import type { NextPage } from "next";
-import { trpc } from "../utils/trpc";
+import type { NextPage } from 'next'
+import { trpc } from '../utils/trpc'
 
 const Events: NextPage = () => {
-  const events = trpc.useQuery(["event.all"]);
+  const events = trpc.useQuery(['event.all'])
 
   return (
     <>
@@ -19,7 +19,7 @@ const Events: NextPage = () => {
         )}
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Events;
+export default Events

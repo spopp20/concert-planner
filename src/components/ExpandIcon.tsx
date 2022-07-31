@@ -1,12 +1,9 @@
-import {
-    HiChevronDown,
-    HiChevronUp,
-} from 'react-icons/hi'
+import { HiChevronDown, HiChevronUp } from 'react-icons/hi'
 
 type ExpandIconPros = {
-  isExpanded: boolean;
-  handleClick: () => void;
-};
+  isExpanded: boolean
+  handleClick: () => void
+}
 
 export default function ExpandIcon({
   isExpanded,
@@ -16,5 +13,5 @@ export default function ExpandIcon({
     <HiChevronUp onClick={handleClick} />
   ) : (
     <HiChevronDown onClick={handleClick} />
-  );
+  )
 }

@@ -1,14 +1,14 @@
-import Link from "next/link";
+import Link from 'next/link'
 
 /**
  *  Parameters definition for ActionCard
  */
 type ActionCardProps = {
-  title: string;
-  linkName: string;
-  description: string;
-  pageRoute: string;
-};
+  title: string
+  linkName: string
+  description: string
+  pageRoute: string
+}
 
 /**
  * ActionCard displays a card with a link to an action
@@ -34,7 +34,7 @@ const ActionCard = ({
         </button>
       </Link>
     </section>
-  );
-};
+  )
+}
 
-export default ActionCard;
+export default ActionCard

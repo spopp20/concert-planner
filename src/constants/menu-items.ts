@@ -6,46 +6,44 @@ import {
   HiCalendar,
 } from 'react-icons/hi'
 
-
 const MENU_OPTIONS: MenuOption[] = [
   {
-    name: "Music Home",
+    name: 'Music Home',
     icon: HiHome,
-    url: "/",
+    url: '/',
   },
   {
-    name: "Settings",
+    name: 'Settings',
     icon: HiCog,
-    url: "/instruments",
+    url: '/instruments',
   },
   {
-    name: "Songs",
+    name: 'Songs',
     icon: HiSearch,
-    url: "/songs",
+    url: '/songs',
   },
   {
-    name: "Events",
+    name: 'Events',
     icon: HiCalendar,
-    url: "/events",
+    url: '/events',
   },
-];
-
+]
 
 export type MenuItem = {
-  name: string,
-  icon: React.ComponentType,
-  url: string,
-  id: string,
-  depth: number,
-  subItems?: MenuItem[],
-};
+  name: string
+  icon: React.ComponentType
+  url: string
+  id: string
+  depth: number
+  subItems?: MenuItem[]
+}
 
 type MenuOption = {
-  name: string;
-  icon: React.ComponentType;
-  url: string;
-  subItems?: MenuOption[];
-};
+  name: string
+  icon: React.ComponentType
+  url: string
+  subItems?: MenuOption[]
+}
 
 /**
  * Recursively call to make application menu items
@@ -62,7 +60,7 @@ function makeMenuLevel(options: MenuOption[], depth = 0): MenuItem[] {
       option.subItems && option.subItems.length > 0
         ? makeMenuLevel(option.subItems, depth + 1)
         : undefined,
-  }));
+  }))
 }
 
-export const MENU_ITEMS: MenuItem[] = makeMenuLevel(MENU_OPTIONS);
+export const MENU_ITEMS: MenuItem[] = makeMenuLevel(MENU_OPTIONS)

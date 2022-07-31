@@ -1,9 +1,9 @@
-import { MenuItem as MenuItemType } from '../../constants/menu-items';
-import MenuItem from "./MenuItem";
+import { MenuItem as MenuItemType } from '../../constants/menu-items'
+import MenuItem from './MenuItem'
 
 type MenuItemListProps = {
-  options: MenuItemType[],
-};
+  options: MenuItemType[]
+}
 
 export default function MenuItemList({ options }: MenuItemListProps) {
   return (
@@ -12,5 +12,5 @@ export default function MenuItemList({ options }: MenuItemListProps) {
         <MenuItem menuItem={option} key={option.id} />
       ))}
     </>
-  );
+  )
 }

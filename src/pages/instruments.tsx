@@ -1,8 +1,8 @@
-import type { NextPage } from "next";
-import { trpc } from "../utils/trpc";
+import type { NextPage } from 'next'
+import { trpc } from '../utils/trpc'
 
 const Instruments: NextPage = () => {
-    const instruments = trpc.useQuery(["instrument.all"], );
+  const instruments = trpc.useQuery(['instrument.all'])
 
   return (
     <>
@@ -19,8 +19,7 @@ const Instruments: NextPage = () => {
         )}
       </div>
     </>
-  );
-  };
-  
-  export default Instruments;
-  
+  )
+}
+
+export default Instruments

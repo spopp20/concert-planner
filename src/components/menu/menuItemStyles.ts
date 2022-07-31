@@ -1,9 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
-export const MenuItemContainer =
-  styled.a <
-  { depth: number } >
-  `
+export const MenuItemContainer = styled.a<{ depth: number }>`
   display: flex;
   flex-direction: row;
   font-size: 20px;
@@ -34,4 +31,4 @@ export const MenuItemContainer =
     background-color: #00022e;
     color: #fff;
   }
-`;
+`

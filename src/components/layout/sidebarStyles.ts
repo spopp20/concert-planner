@@ -1,8 +1,8 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const SidebarContainer = styled.aside<{ isOpened: boolean }>`
   background: #d8dcd6;
-  width: ${(props) => (props.isOpened ? "17vw" : "0vw")};
+  width: ${(props) => (props.isOpened ? '17vw' : '0vw')};
   transition: width 0.5s;
   overflow: hidden;
-`;
+`

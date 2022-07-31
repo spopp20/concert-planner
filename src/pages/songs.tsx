@@ -1,9 +1,9 @@
-import type { NextPage } from "next";
-import { trpc } from "../utils/trpc";
+import type { NextPage } from 'next'
+import { trpc } from '../utils/trpc'
 
 const Songs: NextPage = () => {
-  const tableData = trpc.useQuery(["song.all"]);
-  
+  const tableData = trpc.useQuery(['song.all'])
+
   return (
     <>
       <p className="text-2xl text-gray-700 flex justify-center">Songs</p>
@@ -20,7 +20,7 @@ const Songs: NextPage = () => {
         )}
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Songs;
+export default Songs
