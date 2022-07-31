@@ -32,18 +32,6 @@ import { UserModel } from '../../zod';
         return user;
       },
     })
-    // remove this query
-    // .query('all', {
-    //   async resolve({ ctx }) {
-    //     return ctx.prisma.user.findMany({
-    //       select: defaultUserSelect,
-    //       orderBy: {
-    //         name: 'asc',
-    //       } 
-    //     });
-    //   },
-    // })
-    // unique
     .query('byId', {
       input: z.object({
         id: z.string().cuid(),

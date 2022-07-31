@@ -1,5 +1,5 @@
 import * as z from "zod"
-import { CompleteEvent, RelatedEventModel, CompleteInstrument, RelatedInstrumentModel } from "./index"
+import { CompleteEvent, RelatedEventModel, CompleteInstrument, RelatedInstrumentModel, CompleteSongTags, RelatedSongTagsModel } from "./index"
 
 export const SongModel = z.object({
   id: z.string(),
@@ -19,6 +19,7 @@ export const SongModel = z.object({
 export interface CompleteSong extends z.infer<typeof SongModel> {
   Event?: CompleteEvent | null
   Instrument?: CompleteInstrument | null
+  SongTags: CompleteSongTags[]
 }
 
 /**
@@ -29,4 +30,5 @@ export interface CompleteSong extends z.infer<typeof SongModel> {
 export const RelatedSongModel: z.ZodSchema<CompleteSong> = z.lazy(() => SongModel.extend({
   Event: RelatedEventModel.nullish(),
   Instrument: RelatedInstrumentModel.nullish(),
+  SongTags: RelatedSongTagsModel.array(),
 }))

@@ -37,6 +37,12 @@ const Home: NextPage = () => {
             linkName="Events"
             pageRoute="events"
           />
+          <ActionCard
+            title="View Song Tags"
+            description="List Song Tags"
+            linkName="Tags"
+            pageRoute="tags"
+          />
         </div>
       </main>
     </>

@@ -6,17 +6,17 @@ generator client {
 }
 
 generator zod {
-  provider                 = "zod-prisma"
-  output                   = "../src/zod" // (default) the directory where generated zod schemas will be saved
-  relationModel            = true // (default) Create and export both plain and related models.
+  provider              = "zod-prisma"
+  output                = "../src/zod" // (default) the directory where generated zod schemas will be saved
+  relationModel         = true // (default) Create and export both plain and related models.
   // relationModel         = "default" // Do not export model without relations.
   // relationModel         = false // Do not generate related model
-  modelCase                = "PascalCase" // (default) Output models using pascal case (ex. UserModel, PostModel)
+  modelCase             = "PascalCase" // (default) Output models using pascal case (ex. UserModel, PostModel)
   // modelCase             = "camelCase" // Output models using camel case (ex. userModel, postModel)
-  modelSuffix              = "Model" // (default) Suffix to apply to your prisma models when naming Zod schemas
+  modelSuffix           = "Model" // (default) Suffix to apply to your prisma models when naming Zod schemas
   // useDecimalJs          = false // (default) represent the prisma Decimal type using as a JS number
-  useDecimalJs             = true // represent the prisma Decimal type using Decimal.js (as Prisma does)
-  prismaJsonNullability    = true // (default) uses prisma's scheme for JSON field nullability
+  useDecimalJs          = true // represent the prisma Decimal type using Decimal.js (as Prisma does)
+  prismaJsonNullability = true // (default) uses prisma's scheme for JSON field nullability
   // prismaJsonNullability = false // allows null assignment to optional JSON fields
 }
 
@@ -110,4 +110,20 @@ model Song {
   eventId      String?
   Instrument   Instrument? @relation(fields: [instrumentId], references: [id])
   instrumentId String?
+  SongTags     SongTags[]
+}
+
+model SongTags {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  Song      Song?    @relation(fields: [songId], references: [id])
+  songId    String?
+  Tag       Tag?     @relation(fields: [tagId], references: [id])
+  tagId     String?
+}
+
+model Tag {
+  id    String     @id @default(cuid())
+  name  String     @unique
+  songs SongTags[]
 }
